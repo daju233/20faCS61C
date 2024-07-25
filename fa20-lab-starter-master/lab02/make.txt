@@ -1,0 +1,7 @@
+1.all: $(BINARIES)
+2.clean
+3.gcc
+4.C99
+5.$(FOO)
+6.MacOS
+7.34
