@@ -17,7 +17,7 @@ main:
 
     #print "lists before: "
     la a1, start_msg
-    li a0, 4
+    li a0, 5
     ecall
 
     #print the list
@@ -35,7 +35,7 @@ main:
 
     # print "lists after: "
     la a1, end_msg
-    li a0, 4
+    li a0, 5
     ecall
 
     # print the list
@@ -65,29 +65,37 @@ map:
     # also keep in mind that we should not make ANY assumption on which registers
     # are modified by the callees, even when we know the content inside the functions 
     # we call. this is to enforce the abstraction barrier of calling convention.
+    lw t1 0(s0) #t1是数组地址
+    lw t2, 4(s0)    # load the size of the node's array into t2 
+    addi t1 t1 -4
+
 mapLoop:
-    add t1, s0, x0      # load the address of the array of current node into t1
-    lw t2, 4(s0)        # load the size of the node's array into t2
+    #add t1, t1, x0     # load the address of the array of current node into t1
+    addi t1 t1 4
 
-    add t1, t1, t0      # offset the array address by the count
-    lw a0, 0(t1)        # load the value at that address into a0
+    lw a0  0(t1)
+    # offset the array address by the count
+    # load the value at that address into a0
 
-    jalr s1             # call the function on that value.
-
-    sw a0, 0(t1)        # store the returned value back into the array
+    addi sp,sp,-12
+    sw t0 0(sp)
+    sw t1 4(sp)
+    sw t2 8(sp)
+    jalr s1            # call the function on that value.
+    lw t2 8(sp)
+    lw t1 4(sp)
+    lw t0 0(sp)
+    addi sp sp 12
+    
+    sw a0,0(t1)       # store the returned value back into the array error!!!!
     addi t0, t0, 1      # increment the count
     bne t0, t2, mapLoop # repeat if we haven't reached the array size yet
 
-    lw a0, 0(s0)        # load the address of the next node into a0
-    lw a1, 0(s1)        # put the address of the function back into a1 to prepare for the recursion
+    lw a0,8(s0)        # load the address of the next node into a0
+    mv a1,s1        # put the address of the function back into a1 to prepare for the recursion error
 
-    sw ra, 12(sp)
-    sw s1, 16(sp)
-    sw s0, 20(sp)
     jal  map            # recurse
-    lw s0, 20(sp)
-    lw s1, 16(sp)
-    lw ra, 12(sp)
+
 done:
     lw s0, 8(sp)
     lw s1, 4(sp)
