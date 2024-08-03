@@ -15,20 +15,30 @@
 #   this function terminates the program with error code 77.
 # =================================================================
 argmax:
-
+    li t3 1
+    blt a1 t3 error_call
     # Prologue
-
-
-loop_start:
-
-
-loop_continue:
-
-
-loop_end:
+    lw t1, 0(a0) 
+    mv t4 a1
+    mv t5 x0
     
+loop_start:
+    addi a0 ,a0,4
+    addi a1,a1,-1
+    lw t2 0(a0)
 
+    ble a1, x0, loop_end
+    bgt t2, t1, loop_continue
+    bgt a1, x0, loop_start
+loop_continue:
+    sub t5 t4 a1
+    mv  t1, t2 # t1 = t2
+    j loop_start
+loop_end:
     # Epilogue
-
-
+    mv a0 t5
+	ret
+error_call:
+    li a0 77
     ret
+

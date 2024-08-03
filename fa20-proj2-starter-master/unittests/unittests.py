@@ -21,7 +21,14 @@ class TestAbs(TestCase):
         t.call("abs")
         t.check_scalar("a0", 1)
         t.execute()
-
+        
+    def test_minus_one(self):
+        t = AssemblyTest(self, "abs.s")
+        t.input_scalar("a0", -1)
+        t.call("abs")
+        t.check_scalar("a0", 1)
+        t.execute()
+        
     @classmethod
     def tearDownClass(cls):
         print_coverage("abs.s", verbose=False)
@@ -42,17 +49,42 @@ class TestRelu(TestCase):
         t.check_array(array0, [1, 0, 3, 0, 5, 0, 7, 0, 9])
         # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
         t.execute()
-
+    def test_hard(self):
+        t = AssemblyTest(self, "relu.s")
+        # create an array in the data section
+        array0 = t.array([])
+        # load address of `array0` into register a0
+        t.input_array("a0", array0)
+        # set a1 to the length of our array
+        t.input_scalar("a1", len(array0))
+        # call the relu function
+        t.call("relu")
+        # check that the array0 was changed appropriately
+        t.check_scalar("a0", 78)
+        # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
+        t.execute()      
+    def test_zero(self):
+        t = AssemblyTest(self, "relu.s")
+        # create an array in the data section
+        array0 = t.array([0,0,0,0,0])
+        # load address of `array0` into register a0
+        t.input_array("a0", array0)
+        # set a1 to the length of our array
+        t.input_scalar("a1", len(array0))
+        # call the relu function
+        t.call("relu")
+        # check that the array0 was changed appropriately
+        t.check_array(array0, [0,0,0,0,0])
+        # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
+        t.execute()
     @classmethod
     def tearDownClass(cls):
         print_coverage("relu.s", verbose=False)
 
 
 class TestArgmax(TestCase):
-    def test_simple(self):
-        t = AssemblyTest(self, "argmax.s")
         # create an array in the data section
-        raise NotImplementedError("TODO")
+        #raise NotImplementedError("TODO")
         # TODO
         # load address of the array into register a0
         # TODO
@@ -63,8 +95,54 @@ class TestArgmax(TestCase):
         # check that the register a0 contains the correct output
         # TODO
         # generate the `assembly/TestArgmax_test_simple.s` file and run it through venus
+        
+    def test_simple(self):
+        t = AssemblyTest(self, "argmax.s")
+        array0 = t.array([16,2,3,4,5,7])
+        t.input_array("a0", array0)
+        t.input_scalar("a1", len(array0))
+        t.call("argmax")
+        t.check_scalar("a0", 0)         
         t.execute()
-
+        
+    def test_1(self):        
+        t = AssemblyTest(self, "argmax.s")
+        array0 = t.array([16,17,18,-1])
+        t.input_array("a0", array0)
+        t.input_scalar("a1", len(array0))
+        t.call("argmax")
+        t.check_scalar("a0", 2)         
+        t.execute()
+        
+    def test_zero(self):
+        t = AssemblyTest(self, "argmax.s")
+        # create an array in the data section
+        array0 = t.array([0,0,0,0,0])
+        # load address of `array0` into register a0
+        t.input_array("a0", array0)
+        # set a1 to the length of our array
+        t.input_scalar("a1", len(array0))
+        # call the relu function
+        t.call("argmax")
+        # check that the array0 was changed appropriately
+        t.check_scalar("a0", 0)
+        # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
+        t.execute()
+    def test_hard(self):
+        t = AssemblyTest(self, "argmax.s")
+        # create an array in the data section
+        array0 = t.array([])
+        # load address of `array0` into register a0
+        t.input_array("a0", array0)
+        # set a1 to the length of our array
+        t.input_scalar("a1", len(array0))
+        # call the relu function
+        t.call("argmax")
+        # check that the array0 was changed appropriately
+        t.check_scalar("a0", 77)
+        # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
+        t.execute()         
+        
     @classmethod
     def tearDownClass(cls):
         print_coverage("argmax.s", verbose=False)
