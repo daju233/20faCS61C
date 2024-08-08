@@ -26,22 +26,22 @@
 matmul:
 
     # Error checks
-
+    
 
     # Prologue
 
 
 outer_loop_start:
 
+    mul t1 a1 a2
 
 
 
 inner_loop_start:
 
 
-
-
-
+    mul
+    addi a6 a6 4
 
 
 
@@ -51,11 +51,13 @@ inner_loop_start:
 
 inner_loop_end:
 
-
+    addi a2 a2 -1
+    addi a5 a5 -1
 
 
 outer_loop_end:
-
+    addi a1 a1 -1
+    addi a4 a4 -1
 
     # Epilogue
     
