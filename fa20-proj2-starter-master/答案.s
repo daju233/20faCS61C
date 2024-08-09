@@ -48,24 +48,24 @@ matmul:
     mv s4, a4
     mv s5, a5
     mv s6, a6
-    
+    #a0按行 a3按列
 	# init
     li t0, 0 # i = 0
 ebreak
 outer_loop_start:
 	li t1, 0 # j = 0
 inner_loop_start:
-	mv a0, s0
+	mv a0, s0 
     li t2, 4
-    mul t2, t2, t1
-    add a1, s3, t2
-    mv a2, s2
-    li a3, 1
-    mv a4, s5
+    mul t2, t2, t1 
+    add a1, s3, t2 #列数组的起点
+    mv a2, s2 #dot中的数组长度参数
+    li a3, 1 #行的跨步参数
+    mv a4, s5 //列的跨步参数
     
     # prologue
 	addi sp, sp, -8
-    sw t0, 0(sp)
+    sw t0, 0(sp)#当前的循环计数
     sw t1, 4(sp)
     
     jal dot

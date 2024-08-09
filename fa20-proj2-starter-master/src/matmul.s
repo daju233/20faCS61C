@@ -26,38 +26,88 @@
 matmul:
 
     # Error checks
-    
-
+	ble a1, zero, exit_72
+    ble a2, zero, exit_72
+    ble a4, zero, exit_73
+    ble a5, zero, exit_73
+	bne a2, a4, exit_74
     # Prologue
-    mv t0 a1
-    mv t1 a5
-    mv t2 a2
-    addi a0 a0 -4 //heightA=a1 widthB=a5 widthA=a2
-    addi a3 a3 -4
-    addi a6 a6 -4
+    addi sp, sp, -32
+    sw s0, 0(sp)
+    sw s1, 4(sp)
+    sw s2, 8(sp)
+    sw s3, 12(sp)
+    sw s4, 16(sp)
+    sw s5, 20(sp)
+    sw s6, 24(sp)
+    sw ra, 28(sp)
+    mv s0, a0
+    mv s1, a1
+    mv s2, a2
+    mv s3, a3
+    mv s4, a4
+    mv s5, a5
+    mv s6, a6
+    #a0按行 a3按列
+	# init
+    li t0, 0 # i = 0
+ebreak
 outer_loop_start:
-    addi a0 a0 4
-    addi a3 a3 4
-    addi a6 a6 4
+	li t1, 0 # j = 0
 inner_loop_start:
-    mul a1     
-
-
-
-
-
+	mv a0, s0 
+    li t2, 4
+    mul t2, t2, t1 
+    add a1, s3, t2 #列数组的起点
+    mv a2, s2 #dot中的数组长度参数
+    li a3, 1 #行的跨步参数
+    mv a4, s5 //列的跨步参数
     
+    # prologue
+	addi sp, sp, -8
+    sw t0, 0(sp)#当前的循环计数
+    sw t1, 4(sp)
+    
+    jal dot
+ebreak
+    sw a0, 0(s6)
+    addi s6, s6, 4
+    
+    # epilogue
+    lw t0, 0(sp)
+    lw t1, 4(sp)
+	addi sp, sp, 8
+    
+    addi t1, t1, 1 # j++
+    beq t1, s5, inner_loop_end
+    j inner_loop_start
 inner_loop_end:
-    addi a2 a2 -1
-    bnez a2 inner_loop_start 
-
-    addi a5 a5 -1
-    bnez a2 inner_loop_start 
-
+	addi t0, t0, 1 # i++
+    beq t0, s1, outer_loop_end
+	li t2, 4
+    mul t2, t2, s2
+    add s0, s0, t2
+    j outer_loop_start
 outer_loop_end:
-    addi a1 a1 -1
-    bnez a1 outer_loop_start 
+
     # Epilogue
-    
-    
+    lw s0, 0(sp)
+    lw s1, 4(sp)
+    lw s2, 8(sp)
+    lw s3, 12(sp)
+    lw s4, 16(sp)
+    lw s5, 20(sp)
+    lw s6, 24(sp)
+    lw ra, 28(sp)
+    addi sp, sp, 32
     ret
+
+exit_72:
+    li a1, 72
+    j exit2
+exit_73:
+	li a1, 73
+    j exit2
+exit_74:
+	li a1, 74
+    j exit2
