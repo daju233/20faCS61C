@@ -29,36 +29,34 @@ matmul:
     
 
     # Prologue
-
-
+    mv t0 a1
+    mv t1 a5
+    mv t2 a2
+    addi a0 a0 -4 //heightA=a1 widthB=a5 widthA=a2
+    addi a3 a3 -4
+    addi a6 a6 -4
 outer_loop_start:
-
-    mul t1 a1 a2
-
-
-
-inner_loop_start:
-
-
-    mul
+    addi a0 a0 4
+    addi a3 a3 4
     addi a6 a6 4
+inner_loop_start:
+    mul a1     
 
 
 
 
 
-
-
+    
 inner_loop_end:
-
     addi a2 a2 -1
-    addi a5 a5 -1
+    bnez a2 inner_loop_start 
 
+    addi a5 a5 -1
+    bnez a2 inner_loop_start 
 
 outer_loop_end:
     addi a1 a1 -1
-    addi a4 a4 -1
-
+    bnez a1 outer_loop_start 
     # Epilogue
     
     
