@@ -61,7 +61,7 @@ inner_loop_start:
     add a1, s3, t2 #列数组的起点
     mv a2, s2 #dot中的数组长度参数
     li a3, 1 #行的跨步参数
-    mv a4, s5 //列的跨步参数
+    mv a4, s5 #列的跨步参数
     
     # prologue
 	addi sp, sp, -8
