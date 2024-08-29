@@ -343,10 +343,6 @@ end TCL_Generic;
     <a name="clabel" val=""/>
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="east"/>
-    <comp lib="0" loc="(1300,410)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-    </comp>
     <comp lib="0" loc="(250,190)" name="Pin">
       <a name="label" val="A"/>
     </comp>
@@ -370,12 +366,6 @@ end TCL_Generic;
       <a name="label" val="RESULT"/>
       <a name="output" val="true"/>
     </comp>
-    <comp lib="0" loc="(850,300)" name="Pin"/>
-    <comp lib="0" loc="(850,350)" name="Pin"/>
-    <comp lib="0" loc="(850,400)" name="Pin"/>
-    <comp lib="0" loc="(850,450)" name="Pin"/>
-    <comp lib="0" loc="(850,500)" name="Pin"/>
-    <comp lib="0" loc="(850,550)" name="Pin"/>
     <comp lib="1" loc="(310,390)" name="NOT Gate"/>
     <comp lib="1" loc="(320,450)" name="NOT Gate"/>
     <comp lib="1" loc="(420,520)" name="AND Gate"/>
@@ -392,18 +382,6 @@ end TCL_Generic;
     <comp lib="8" loc="(470,108)" name="Text">
       <a name="text" val="PUT CIRCUITRY HERE"/>
     </comp>
-    <comp loc="(1050,260)" name="MUX2"/>
-    <comp loc="(1060,410)" name="MUX2"/>
-    <comp loc="(1230,310)" name="MUX2"/>
-    <wire from="(1050,260)" to="(1110,260)"/>
-    <wire from="(1060,410)" to="(1080,410)"/>
-    <wire from="(1080,330)" to="(1080,410)"/>
-    <wire from="(1080,330)" to="(1110,330)"/>
-    <wire from="(1110,260)" to="(1110,310)"/>
-    <wire from="(1110,350)" to="(1110,560)"/>
-    <wire from="(1230,310)" to="(1280,310)"/>
-    <wire from="(1280,310)" to="(1280,410)"/>
-    <wire from="(1280,410)" to="(1300,410)"/>
     <wire from="(250,190)" to="(270,190)"/>
     <wire from="(250,240)" to="(270,240)"/>
     <wire from="(250,290)" to="(440,290)"/>
@@ -454,38 +432,13 @@ end TCL_Generic;
     <wire from="(500,290)" to="(570,290)"/>
     <wire from="(500,370)" to="(570,370)"/>
     <wire from="(570,230)" to="(570,240)"/>
-    <wire from="(570,230)" to="(680,230)"/>
     <wire from="(570,270)" to="(570,290)"/>
     <wire from="(570,310)" to="(570,370)"/>
     <wire from="(620,220)" to="(620,240)"/>
     <wire from="(620,240)" to="(630,240)"/>
     <wire from="(620,280)" to="(620,290)"/>
     <wire from="(620,280)" to="(630,280)"/>
-    <wire from="(680,230)" to="(680,250)"/>
     <wire from="(680,260)" to="(680,300)"/>
     <wire from="(680,300)" to="(700,300)"/>
-    <wire from="(850,300)" to="(870,300)"/>
-    <wire from="(850,350)" to="(870,350)"/>
-    <wire from="(850,400)" to="(940,400)"/>
-    <wire from="(850,450)" to="(930,450)"/>
-    <wire from="(850,500)" to="(900,500)"/>
-    <wire from="(850,550)" to="(880,550)"/>
-    <wire from="(870,240)" to="(870,300)"/>
-    <wire from="(870,240)" to="(930,240)"/>
-    <wire from="(870,320)" to="(870,350)"/>
-    <wire from="(870,320)" to="(920,320)"/>
-    <wire from="(880,550)" to="(880,560)"/>
-    <wire from="(880,560)" to="(1110,560)"/>
-    <wire from="(900,300)" to="(900,470)"/>
-    <wire from="(900,300)" to="(930,300)"/>
-    <wire from="(900,470)" to="(900,500)"/>
-    <wire from="(900,470)" to="(940,470)"/>
-    <wire from="(920,280)" to="(920,320)"/>
-    <wire from="(920,280)" to="(930,280)"/>
-    <wire from="(930,240)" to="(930,260)"/>
-    <wire from="(930,430)" to="(930,450)"/>
-    <wire from="(930,430)" to="(940,430)"/>
-    <wire from="(940,400)" to="(940,410)"/>
-    <wire from="(940,450)" to="(940,470)"/>
   </circuit>
 </project>
